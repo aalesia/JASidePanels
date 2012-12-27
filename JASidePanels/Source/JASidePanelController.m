@@ -1289,6 +1289,13 @@
     } else if (self.state == JASidePanelCenterVisible) {
         [self _showLeftPanel:YES bounce:NO];
     }
+    
+    //This gives support for pannign closed when toggled open.
+    int64_t delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _panHorizontal = YES;
+    });
 }
 
 - (void)toggleRightPanel:(id)sender {
@@ -1297,6 +1304,7 @@
     } else if (self.state == JASidePanelCenterVisible) {
         [self _showRightPanel:YES bounce:NO];
     }
+
 }
 
 - (void)toggleTopPanel:(id)sender {
